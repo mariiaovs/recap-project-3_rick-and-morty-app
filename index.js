@@ -23,7 +23,7 @@ export async function fetchCharacters() {
     );
     const data = await response.json();
     data.results.forEach((result) => {
-      //console.log(data.info);
+      
       const card = CharacterCard(result);
       cardContainer.append(card);
       pagination.textContent = `${page} / ${data.info.pages}`;
