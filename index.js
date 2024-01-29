@@ -12,7 +12,7 @@ const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
 let maxPage = 42;
-let page = 40;
+let page = 1;
 const searchQuery = "";
 
 export async function fetchCharacters() {
