@@ -14,12 +14,12 @@ const navigation = document.querySelector('[data-js="navigation"]');
 const prevButton = NavButton({
   name: "prev",
   text: "previous",
-  onClick: handlePrevButtonClick,
+  onClick: handleButtonClick,
 });
 const nextButton = NavButton({
   name: "next",
   text: "next",
-  onClick: handleNextButtonClick,
+  onClick: handleButtonClick,
 });
 const pagination = NavPagination();
 navigation.append(prevButton, pagination, nextButton);
@@ -51,11 +51,12 @@ fetchCharacters();
 function handleSearchBarSubmit(event) {
   event.preventDefault();
   searchQuery = event.target.elements.query.value;
+  page = 1;
   console.log(searchQuery);
   fetchCharacters();
 }
 
-function handleNextButtonClick() {
+/* function handleNextButtonClick() {
   if (page === maxPage) {
     return;
   } else {
@@ -71,4 +72,21 @@ function handlePrevButtonClick() {
     page--;
     fetchCharacters();
   }
+} */
+
+function handleButtonClick() {
+  if (event.target.textContent === "next") {
+    if (page === maxPage) {
+      return;
+    } else {
+      page++;
+    }
+  } else if (event.target.textContent === "previous") {
+    if (page === 1) {
+      return;
+    } else {
+      page--;
+    }
+  }
+  fetchCharacters();
 }
