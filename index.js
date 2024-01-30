@@ -1,16 +1,25 @@
 import { CharacterCard } from "./components/CharacterCard/CharacterCard.js";
 import SearchBar from "./components/SearchBar/SearchBar.js";
 import NavPagination from "./components/NavPagination/NavPagination.js";
+import NavButton from "./components/NavButton/NavButton.js";
 
+const searchBar = SearchBar({ onSubmit: handleSearchBarSubmit });
+
+/* const bookmarkButton = Bookmark({
+  active: props.isBookmarked,
+  onClick: handleBookmarkButtonClick,
+});
+ */
+const searchBarContainer = document.querySelector(
+  '[data-js="search-bar-container"]'
+);
+searchBarContainer.append(searchBar);
 const cardContainer = document.querySelector('[data-js="card-container"]');
-const searchBarContainer = SearchBar();
-document.body.append(searchBarContainer);
-const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
+const prevButton = NavButton("prev", "previous");
+const nextButton = NavButton("next", "next");
 const pagination = NavPagination();
-navigation.append(pagination);
+navigation.append(prevButton, pagination, nextButton);
 
 // States
 let maxPage = 42;
@@ -54,10 +63,16 @@ prevButton.addEventListener("click", () => {
   }
 });
 
-searchBar.addEventListener("submit", (event) => {
+function handleSearchBarSubmit(event) {
   event.preventDefault();
-
   searchQuery = event.target.elements.query.value;
   console.log(searchQuery);
   fetchCharacters();
-});
+}
+
+/* function handleBookmarkButtonClick(event) {
+  cards.find((card) => card.question === props.question).isBookmarked =
+    !props.isBookmarked;
+  // To prevent the need to rerender, we can just toggle the class here
+  event.currentTarget.classList.toggle("bookmark--active");
+} */

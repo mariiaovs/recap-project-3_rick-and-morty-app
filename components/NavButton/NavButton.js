@@ -1,16 +1,8 @@
-import { fetchCharacters, page } from "../../index.js";
+export default function NavButton(name, text) {
+  const navButton = document.createElement("button");
+  navButton.classList.add("button");
+  navButton.classList.add(`button--${name}`);
 
-const nextButton = document.querySelector('[data-js="button-next"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-
-console.log(page);
-
-nextButton.addEventListener("click", () => {
-  page++;
-  if (page > data.info.pages || page < 1) {
-    return;
-  } else {
-    console.log("next", page);
-    fetchCharacters();
-  }
-});
+  navButton.textContent = `${text}`;
+  return navButton;
+}

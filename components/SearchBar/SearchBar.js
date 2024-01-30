@@ -1,21 +1,35 @@
-export default function SearchBar() {
-  const searchBarContainer = document.createElement("div");
-  searchBarContainer.classList.add("search-bar-container");
+import { fetchCharacters } from "../../index.js";
 
-  searchBarContainer.innerHTML = `
-<form action="" class="search-bar" data-js="search-bar">
-    <input
-      name="query"
-      class="search-bar__input"
-      type="text"
-      placeholder="search characters"
-      aria-label="character name"
-    />
-    <button class="search-bar__button" aria-label="search for character">
-      <img class="search-bar__icon" src="assets/magnifying-glass.png" alt="" />
-    </button>
-  </form>
+export default function SearchBar(props) {
+  const searchBar = document.createElement("form");
+  searchBar.classList.add("search-bar");
+
+  searchBar.innerHTML = `
+  <input
+  name="query"
+  class="search-bar__input"
+  type="text"
+  placeholder="search characters"
+  aria-label="character name"
+/>
+<button class="search-bar__button" aria-label="search for character">
+  <img
+    class="search-bar__icon"
+    src="assets/magnifying-glass.png"
+    alt=""
+  />
+</button>
 `;
-  return searchBarContainer;
-  //document.body.append(searchBarContainer);
+
+  searchBar.addEventListener("submit", props.onSubmit);
+
+  /* searchBar.addEventListener("onSubmit", (event) => {
+    event.preventDefault();
+
+    searchQuery = event.target.elements.query.value;
+    console.log(searchQuery);
+    fetchCharacters();
+  }); */
+
+  return searchBar;
 }
