@@ -5,19 +5,22 @@ import NavButton from "./components/NavButton/NavButton.js";
 
 const searchBar = SearchBar({ onSubmit: handleSearchBarSubmit });
 
-/* const bookmarkButton = Bookmark({
-  active: props.isBookmarked,
-  onClick: handleBookmarkButtonClick,
-});
- */
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
 searchBarContainer.append(searchBar);
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = NavButton("prev", "previous");
-const nextButton = NavButton("next", "next");
+const prevButton = NavButton({
+  name: "prev",
+  text: "previous",
+  onClick: handlePrevButtonClick,
+});
+const nextButton = NavButton({
+  name: "next",
+  text: "next",
+  onClick: handleNextButtonClick,
+});
 const pagination = NavPagination();
 navigation.append(prevButton, pagination, nextButton);
 
@@ -45,24 +48,6 @@ export async function fetchCharacters() {
 }
 fetchCharacters();
 
-nextButton.addEventListener("click", () => {
-  if (page === maxPage) {
-    return;
-  } else {
-    page++;
-    fetchCharacters();
-  }
-});
-
-prevButton.addEventListener("click", () => {
-  if (page === 1) {
-    return;
-  } else {
-    page--;
-    fetchCharacters();
-  }
-});
-
 function handleSearchBarSubmit(event) {
   event.preventDefault();
   searchQuery = event.target.elements.query.value;
@@ -70,9 +55,20 @@ function handleSearchBarSubmit(event) {
   fetchCharacters();
 }
 
-/* function handleBookmarkButtonClick(event) {
-  cards.find((card) => card.question === props.question).isBookmarked =
-    !props.isBookmarked;
-  // To prevent the need to rerender, we can just toggle the class here
-  event.currentTarget.classList.toggle("bookmark--active");
-} */
+function handleNextButtonClick() {
+  if (page === maxPage) {
+    return;
+  } else {
+    page++;
+    fetchCharacters();
+  }
+}
+
+function handlePrevButtonClick() {
+  if (page === 1) {
+    return;
+  } else {
+    page--;
+    fetchCharacters();
+  }
+}

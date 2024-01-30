@@ -23,13 +23,5 @@ export default function SearchBar(props) {
 
   searchBar.addEventListener("submit", props.onSubmit);
 
-  /* searchBar.addEventListener("onSubmit", (event) => {
-    event.preventDefault();
-
-    searchQuery = event.target.elements.query.value;
-    console.log(searchQuery);
-    fetchCharacters();
-  }); */
-
   return searchBar;
 }
